@@ -48,9 +48,11 @@ include_once 'utility1.php';
 
         }else{
 
-            echo '<p style = "color:red;">Login Failed !! Password is wrong</p>';
+            $result = '<p style = "color:red;">Login Failed !! Password is wrong</p>';
         }
 
+    } if($row== false ){
+            $result = '<p style = "color:red;">Login Failed !! Username is wrong</p>';
     }
 
     if(count($formErrors)==1){
@@ -80,6 +82,7 @@ include_once 'utility1.php';
 <input type="text" name="password" ><br> <br>
 <label for="">&nbsp;    &nbsp;   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 <input type="submit" name="submit" Value="login">
+<label for="forgot Password"><a href="forgotpass.php">Forgot Password</a></label>
 </fieldset>
 </form>
 
