@@ -12,6 +12,7 @@
 <?php
 include_once 'database.php';
 include_once 'utility1.php';
+include_once 'utility5.php';
 
 ?>
 <?php
@@ -28,7 +29,7 @@ include_once 'utility1.php';
 
        $username = $_POST['username'];
        $password = $_POST['password'];
-
+       isset($_POST['remember']) ? $remember = $_POST['remember'] : $remember = "";
 
        $query = "SELECT * FROM users WHERE username = :username";
        $statement    =  $db->prepare($query);
@@ -42,8 +43,17 @@ include_once 'utility1.php';
        
         if(password_verify($password,$hashed_password)){    
           
-          echo  $_SESSION['id'] = $id;
-          echo  $_SESSION['Username'] = $username;
+            $_SESSION['id'] = $id;
+            $_SESSION['Username'] = $username;
+           if($remember === 'yes'){
+
+            rememberMee();// to set cookie
+        
+            }else{
+
+             withoutRememberMe();
+            //echo "Cookies Not Set";
+            }
           header('Location: index.php');
 
         }else{
@@ -77,11 +87,12 @@ include_once 'utility1.php';
  ?>
 <br>
 <label for="username">USERNAME</label>
-<input type="text" name="username"> <br><br>
+<input type="text" name="username" value="<?php if(isset($_COOKIE["username"])) { echo $_COOKIE["username"]; } ?>"> <br><br>
 <label for="password">PASSWORD</label>
-<input type="text" name="password" ><br> <br>
+<input type="text" name="password" value="<?php if(isset($_COOKIE["password"])) { echo $_COOKIE["password"]; } ?>" ><br> <br>
 <label for="">&nbsp;    &nbsp;   &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-<input type="submit" name="submit" Value="login">
+<input type="checkbox" name="remember" value="yes"> &nbsp; Remember me
+<input type="submit" name="submit" Value="login"><br> <br>
 <label for="forgot Password"><a href="forgotpass.php">Forgot Password</a></label>
 </fieldset>
 </form>

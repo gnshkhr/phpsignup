@@ -1,4 +1,6 @@
 <?php
+include_once 'utility1.php';
+include_once 'database.php';
  session_start();
 if(!isset($_SESSION['Username'])){
   header('Location : login.php');
@@ -19,7 +21,7 @@ if(!isset($_SESSION['Username'])){
 
 
  
-   if(isset($_SESSION['Username'])){
+   if(isset($_SESSION['Username'])|| isCookieValid($db)){
    $id = $_SESSION['id'];
    $username = $_SESSION['Username'];
    echo "<p> you are signned in as Username : $username  ID: $id </p>";
